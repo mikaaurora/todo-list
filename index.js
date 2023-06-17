@@ -14,6 +14,15 @@ function App() {
     }
   ])
 
+  const [value, setValue] = React.useState('')
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    if (!value) return
+    const newTodos = [...todos, { text: value, isCompleted: false }]
+    setTodos(newTodos)
+    setValue('')
+  }
+
   return (
     <>
       {todos.map((todo, i) => (
@@ -21,6 +30,15 @@ function App() {
           {todo.text}
         </div>
       ))}
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          className="input"
+          value={value}
+          placeholder="Add todo..."
+          onChange={(e) => setValue(e.target.value)}
+        ></input>
+      </form>
     </>
   )
 }
